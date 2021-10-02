@@ -1,0 +1,208 @@
+---
+title: "Data Visualization"
+output: html_notebook
+---
+
+```{r}
+mtcars
+
+```
+
+```{r}
+str(mtcars)
+
+help("mtcars")
+
+```
+
+
+Scatter
+
+```{r}
+plot(mtcars$hp, mtcars$mpg)
+
+```
+
+
+Bar graphs
+
+```{r}
+barplot(mtcars$cyl)
+
+```
+
+
+
+Histograms
+
+```{r}
+
+hist(mtcars$hp)
+
+```
+
+
+
+```{r}
+range(mtcars$mpg)
+
+hist(mtcars$mpg)
+
+```
+
+
+```{r}
+require(ggplot2)
+
+ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point()
+
+```
+
+
+```{r}
+
+ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point(color = 'blue')
+
+```
+
+
+```{r}
+
+ggplot(mtcars, aes(x = hp, y = mpg, color = wt)) + geom_point()
+
+```
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x = hp, y = mpg, color = as.character(gear))) + geom_point()
+
+```
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x = gear)) + geom_bar()
+
+```
+
+
+
+
+```{r}
+
+require(dplyr)
+
+gear_df <- group_by(mtcars, gear) %>% summarise(avg_mpg = mean(mpg))
+
+gear_df
+
+ggplot(gear_df, aes(x = gear, y = avg_mpg)) + geom_col()
+
+```
+
+
+
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x = gear)) + geom_bar(color = 'darkgreen')
+
+```
+
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x = gear)) + geom_bar(fill = 'darkgreen')
+
+```
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x = gear, fill = as.factor(am))) + geom_bar()
+
+```
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x = gear, fill = as.factor(am))) + geom_bar(color = 'black')
+
+```
+
+
+Histograms
+
+Using the mtcars data, plot a histogram using the variable mpg on the x axis.
+
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg)) + geom_histogram()
+
+```
+
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg)) + geom_histogram(binwidth = 5)
+
+```
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg)) + geom_histogram(binwidth = 5, fill = 'darkgreen', color = 'orange')
+
+```
+
+
+
+```{r}
+
+ggplot(mtcars, aes(x=mpg, fill=as.factor(gear))) + geom_histogram(binwidth = 5,color = "black")
+
+```
+
+
+
+
+Boxplot
+
+```{r}
+
+summary(mtcars$mpg)
+
+boxplot(mtcars$mpg)
+
+```
+
+
+
+```{r}
+
+summary(mtcars$hp)
+
+boxplot(mtcars$hp)
+
+
+```
+
+
+```{r}
+
+ggplot(mtcars, aes(x = as.factor(gear), y= hp)) + geom_boxplot()
+
+```
+
+

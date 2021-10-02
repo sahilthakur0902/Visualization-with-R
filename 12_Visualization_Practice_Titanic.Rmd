@@ -1,0 +1,144 @@
+
+
+```{r}
+
+titanic <- read.csv('F:/Imarticus/R Module/Original Work/Titanic.csv')
+
+str(titanic)
+
+```
+
+```{r}
+
+head(titanic)
+
+tail(titanic)
+
+```
+
+
+```{r}
+require(ggplot2)
+
+titanic$Survived <- as.character(titanic$Survived)
+
+titanic$Pclass <- as.character(titanic$Pclass)
+
+
+```
+
+
+```{r}
+require(dplyr)
+df <- group_by(titanic,Survived) %>% summarise(num=n())
+df
+t=nrow(titanic)
+
+ggplot(df, aes(x="", y=num, fill=Survived)) +geom_bar(stat="identity", width=1, color="black") +
+        coord_polar("y", start = 0) +theme_void()+ geom_text(aes(label = paste0(round((num/t)*100),"%")), position = position_stack(vjust = 0.5))
+
+```
+
+
+
+```{r}
+ggplot(titanic, aes(x = Survived, fill = Survived)) + geom_bar()
+
+```
+
+
+
+```{r}
+ggplot(titanic, aes(x = Survived, fill = Pclass)) + geom_bar()
+
+```
+
+
+
+```{r}
+
+ggplot(titanic, aes(x = Pclass, fill = Survived)) + geom_bar()
+
+```
+
+
+
+
+```{r}
+ggplot(titanic, aes(x = Pclass, fill = Survived)) + geom_bar(position = 'dodge')
+
+```
+
+
+
+
+
+```{r}
+ggplot(titanic, aes(x=Pclass,fill=Survived))+geom_bar(position = 'fill')
+```
+
+
+
+
+```{r}
+
+ggplot(titanic, aes(x = Survived, y = Age)) + geom_col()
+
+```
+
+
+
+```{r}
+
+ggplot(titanic, aes(x = Age, fill=Survived)) + 
+  geom_histogram(binwidth = 10, color = 'black')
+
+
+```
+
+
+```{r}
+ggplot(titanic, aes(x = Age, fill=Survived)) + 
+  geom_histogram(binwidth = 10, color='black', position = 'fill')
+
+```
+
+
+
+
+
+
+```{r}
+# Age / Fare => Continuous
+# Survived => Categorical
+
+
+ggplot(titanic, aes(x =Age, y = Fare, color = Survived)) + geom_point()
+
+
+```
+
+
+
+
+
+
+
+```{r}
+
+ggplot(titanic, aes(x = Embarked, fill = Survived)) + geom_bar(position = 'fill')
+
+
+```
+
+
+
+```{r}
+
+ggplot(titanic, aes(x = Embarked, fill = Survived)) + geom_bar(position = 'fill') +
+  facet_grid(~ Pclass)
+
+```
+
+
+
